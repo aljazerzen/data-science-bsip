@@ -1,25 +1,17 @@
-function Detector( record )
-  % Summary of this function and detailed explanation goes here
+function detector(rec)
 
-  % First convert the record into matlab (creates recordm.mat):
-  % wfdb2mat -r record
+fprintf('Detecting QRS in record %s\n', rec);
 
-  fileName = sprintf('%sm.mat', record);
-  t=cputime();
-  m=7;
-  normalizeConst=32;
-  idx = QRSDetect(fileName, m, normalizeConst);
-  fprintf('Running time: %f\n', cputime() - t);
-  asciName = sprintf('%s.asc',record);
-  fid = fopen(asciName, 'wt');
-  for i=1:size(idx,2)
-      fprintf(fid,'0:00:00.00 %d N 0 0 0\n', idx(1,i) );
-  end
-  fclose(fid);
+fileName = sprintf('%sm.mat', rec);
+t=cputime();
 
-  % Now convert the .asc text output to binary WFDB format:
-  % wrann -r record -a qrs <record.asc
-  % And evaluate against reference annotations (atr) using bxb:
-  % bxb -r record -a atr qrs
+load(fileName)
+
+idx = qrs_detect(val);
+fprintf('Running time: %f\n', cputime() - t);
+asciName = sprintf('%s.asc',rec);
+fid = fopen(asciName, 'wt');
+for i=1:size(idx,2)
+  fprintf(fid,'0:00:00.00 %d N 0 0 0\n', idx(1,i) );
 end
-
+fclose(fid);

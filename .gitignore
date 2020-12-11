@@ -1,2 +1,11 @@
 octave-workspace
 data/
+ltstdb
+
+*.hea
+*.dat
+*.mat
+*.atr
+*.att
+*.qrs
+*.bxb
