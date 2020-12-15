@@ -40,7 +40,7 @@ fi
 echo 'running detector...'
 matlab -nodisplay -nosplash -batch "detector('$record')" || exit
 
-wrann -r $record -a qrs < $record.asc
+wrann -r $record -a det < $record.asc
 
 if [ -n "$to" ]; then
   rdann -r $record -a atr -t $to | wrann -r $record -a att
@@ -48,7 +48,7 @@ else
   cp $record.atr $record.att
 fi
 
-bxb -r $record -a att qrs -l eval1.txt eval2.txt -o
+bxb -r $record -a att det -l eval1.txt eval2.txt -o
 
 head -1 eval1.txt
 tail -1 eval1.txt
@@ -67,6 +67,6 @@ if [ -n "$generated" ]; then
   fi
 fi
 rm "${record}.asc"
-rm "${record}.qrs"
+# rm "${record}.det"
 rm "${record}.att"
 
