@@ -5,6 +5,7 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
+    
     "**/*.aux": true,
     "**/*.fdb_latexmk": true,
     "**/*.fls": true,
@@ -14,5 +15,10 @@
     "**/*.out": true,
     "**/*.synctex.gz": true,
     "**/__latexindent_temp.tex": true,
+
+    "**/*.dat": true,
+    "**/*.atr": true,
+    "**/*.hea": true,
+    "**/*.mat": true,
   }
 }
