@@ -96,7 +96,7 @@ function beats = classify(beats, sig, mean_beat, threshold)
   end
 end
 
-mean_beat = compute_mean_beat(10);
+mean_beat = compute_mean_beat(500);
 
 % figure; plot(mean_beat, 'LineWidth', 2);
 % pause

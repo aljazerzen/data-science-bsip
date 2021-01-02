@@ -1,8 +1,8 @@
 function classifier(rec)
 
 % comment this out when using matlab
-args = argv();
-rec = args{1, 1};
+% args = argv();
+% rec = args{1, 1};
 
 fprintf('[classifier] reading annotations\n');
 [detections, count] = readannotations(sprintf('%s.txt', rec));
