@@ -8,13 +8,23 @@ function [beats, count] = readannotations(file)
   
   fid = fopen(file);
   
-  while (~feof(file))
-    count = count + 1;
-    line = fgetl(file);
-    z = textscan(line, '%s %d%s %d %s %d %d %d');
+  end_of_date = -1;
 
-    idx = z(4){1};        % extract the sample index
-    if (strcmp(z(5){1},'N')) 
+  while (~feof(fid))
+    count = count + 1;
+    line = fgetl(fid);
+    
+    if end_of_date < 0
+      double_spaces = strfind(line, "  ");
+      end_of_date = min(double_spaces(double_spaces > 8)) + 2;
+    end
+    z = textscan(line(end_of_date:end), '%d %s %d %d %d');
+
+    idx = z(1);        % extract the sample index
+    idx = idx{1};
+    typ = z(2);        % extract the sample index
+    typ = typ{1};
+    if (strcmp(typ,'N')) 
       typ = 0;            % normal (N) heart beats will be returned as 0
     else 
       typ = 1;            % PVC (V) heart beats will be returned as 1
@@ -25,5 +35,5 @@ function [beats, count] = readannotations(file)
   end
   
   % close the input file
-  fclose(file);
+  fclose(fid);
 end

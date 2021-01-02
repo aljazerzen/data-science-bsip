@@ -29,16 +29,26 @@ fi
 generated=
 if [ ! -e "${record}m.mat" ]; then
   generated=1
+  echo 'converting to matlab format...'
   if [ -n "$to" ]; then
-    echo 'converting to matlab format...'
     wfdb2mat -r $record -t $to > /dev/null
+    rdann -r $record -a atr -p N V -t $to > $record.txt
   else
     wfdb2mat -r $record > /dev/null
+    rdann -r $record -a atr -p N V > $record.txt
   fi
 fi
 
+echo 'converting atr to txt...'
+if [ -n "$to" ]; then
+  rdann -r $record -a atr -p N V -t $to > $record.txt
+else
+  rdann -r $record -a atr -p N V > $record.txt
+fi
+
 echo 'running classifier...'
-matlab -nodisplay -nosplash -batch "classifier('$record')" || exit
+# { time octave classifier.m $record || exit ; } 2>> execution-time.txt
+{ time matlab -nodisplay -nosplash -batch "classifier('$record')" 2>&1 || exit ; } 2>> execution-time.txt
 
 wrann -r $record -a det < $record.cls
 
@@ -69,4 +79,5 @@ fi
 rm "${record}.cls"
 rm "${record}.det"
 rm "${record}.att"
+rm "${record}.txt"
 

@@ -16,9 +16,12 @@
     "**/*.synctex.gz": true,
     "**/__latexindent_temp.tex": true,
 
-    "**/*.dat": true,
-    "**/*.atr": true,
-    "**/*.hea": true,
-    "**/*.mat": true,
-  }
+    "**/*.dat": false,
+    "**/*.atr": false,
+    "**/*.hea": false,
+    "**/*.mat": false,
+  },
+  "cSpell.words": [
+    "isoelectric"
+  ]
 }
