@@ -1,6 +1,6 @@
 function detect_edges(filename)
 
-close('all'); figure;
+% close('all'); figure;
 
 I = im2double(imread(filename));
 

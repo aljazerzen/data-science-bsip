@@ -9,10 +9,12 @@ Iangle = mod(round(Iangle / pi * 4), 4)
 
 
 I = -ones(110, 110);
-for i = 1:size(Idir, 2)
-  x = round(50 * cos(Idir(i))) + 55;
-  y = round(50 * sin(-Idir(i))) + 55;
-  I(y, x) = Iangle(i);
+for r = 20:50
+  for i = 1:size(Idir, 2)
+    x = round(r * cos(Idir(i))) + 55;
+    y = round(r * sin(-Idir(i))) + 55;
+    I(y, x) = Iangle(i);
+  end
 end
 
 imshow(((I + 1) * 32), [])
